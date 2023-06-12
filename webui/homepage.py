@@ -9,7 +9,6 @@ from io import StringIO
 
 import pandas as pd
 import streamlit as st
-from hugchat import hugchat
 from langchain.llms import OpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from streamlit_chat import message
@@ -75,7 +74,7 @@ with tap_example:
         st.write("请先选择数据源！")
 
 with tap_interactive:
-    # model_name="gpt-3.5-turbo"
+    # 将模型选择为：model_name="gpt-3.5-turbo"
     if data_obj is not None:
         st.write("数据源已加载！开始你的数据探索之旅吧！")
         # Generate empty lists for generated and past.
@@ -95,21 +94,7 @@ with tap_interactive:
         # User input
         # Function for taking user provided prompt as input
         def get_text():
-            # 创建一个空的placeholder
-            input_placeholder = st.empty()
-
-            # 在placeholder上创建输入文本框
-            input_text = input_placeholder.text_input("请输入你的问题: ", "", key="input")
-
-            # 创建一个按钮，用于清空输入文本框的内容
-            if st.button("清空文本输入框"):
-                input_placeholder.text_input("输入文本框", value="", key="input_text")
-            # input_text = st.text_input("请输入你的问题: ", "", key="input")
-            # button = st.button("清空文本输入框")
-
-            # # 当按钮被点击时，将文本输入框的值设置为空字符串
-            # if button:
-            #     st.session_state['input'] = ""
+            input_text = st.text_input("请输入你的问题: ", "", key="input")
             return input_text
 
 
