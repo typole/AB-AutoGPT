@@ -28,7 +28,7 @@ with st.sidebar:
     st.write("---")
 
     st.write("\n")
-    st.text_input("OpenAI API key：", key="set_chat_name", placeholder="点击输入")
+    st.text_input("OpenAI API key：[有默认值]", key="set_chat_name", placeholder="点击输入")
     st.selectbox("选择模型：", index=0, options=['gpt-3.5-turbo', 'gpt-4'], key="select_model")
     st.write("\n")
     st.caption("""
