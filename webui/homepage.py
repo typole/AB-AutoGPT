@@ -24,6 +24,7 @@ os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 # 侧边栏内容
 with st.sidebar:
     st.markdown("# 🤖 AB-AutoGPT")
+    st.markdown("### 【0-1】面向AI/BigData从业者的AutoGPT！")
     st.write("---")
 
     st.write("\n")
