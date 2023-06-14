@@ -66,7 +66,7 @@ with st.sidebar:
         data_obj = load_offline_csvfile()
 
 st.write("\n")
-st.header('AB-AutoGPT')
+st.header('AB-AutoGPT 交互式数据探索【迭代中...】')
 tap_example, tap_interactive = st.tabs(['📰 数据示例', '💬️ 数据交互'])
 with tap_example:
     if data_obj is not None:
