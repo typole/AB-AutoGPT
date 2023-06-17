@@ -12,7 +12,6 @@ from langchain import OpenAI
 from langchain.agents import create_pandas_dataframe_agent
 
 from config import *
-import text_toolkit
 
 
 def load_offline_file():
@@ -225,25 +224,25 @@ def show_each_message(message: str, role: str, idr: str, area=None):
         unsafe_allow_html=True)
 
 
-def show_messages(current_chat: str, messages: list):
-    id_role = 0
-    id_assistant = 0
-    for each in messages:
-        if each["role"] == "user":
-            idr = id_role
-            id_role += 1
-        elif each["role"] == "assistant":
-            idr = id_assistant
-            id_assistant += 1
-        else:
-            idr = False
-        if idr is not False:
-            show_each_message(each["content"], each["role"], str(idr))
-            if "open_text_toolkit_value" not in st.session_state or st.session_state["open_text_toolkit_value"]:
-                st.session_state['delete_dict'][current_chat + ">" + str(idr)] = text_toolkit(
-                    data_idr=str(idr) + '_' + each["role"])
-        if each["role"] == "assistant":
-            st.write("---")
+# def show_messages(current_chat: str, messages: list):
+#     id_role = 0
+#     id_assistant = 0
+#     for each in messages:
+#         if each["role"] == "user":
+#             idr = id_role
+#             id_role += 1
+#         elif each["role"] == "assistant":
+#             idr = id_assistant
+#             id_assistant += 1
+#         else:
+#             idr = False
+#         if idr is not False:
+#             show_each_message(each["content"], each["role"], str(idr))
+#             if "open_text_toolkit_value" not in st.session_state or st.session_state["open_text_toolkit_value"]:
+#                 st.session_state['delete_dict'][current_chat + ">" + str(idr)] = text_toolkit(
+#                     data_idr=str(idr) + '_' + each["role"])
+#         if each["role"] == "assistant":
+#             st.write("---")
 
 
 # 根据context_level提取history
