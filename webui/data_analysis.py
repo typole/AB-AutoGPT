@@ -72,3 +72,9 @@ with tap_example:
         st.dataframe(data_obj, height=600)
     else:
         st.caption("请配置数据源，并加载数据！")
+
+with tap_meta:
+    if data_obj is None:
+        st.caption("请配置数据源，并加载数据！")
+    else:
+        st.write("敬请期待！")

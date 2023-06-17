@@ -60,6 +60,7 @@ PyMySQL==1.0.3
 pyparsing==3.0.9
 pyrsistent==0.19.3
 python-dateutil==2.8.2
+python-decouple==3.8
 pytz==2023.3
 pytz-deprecation-shim==0.1.0.post0
 PyYAML==6.0
@@ -71,7 +72,9 @@ smmap==5.0.0
 soupsieve==2.4.1
 SQLAlchemy==2.0.15
 st-annotated-text==4.0.0
+st-pages==0.4.1
 streamlit==1.23.1
+streamlit-aggrid==0.3.4.post3
 streamlit-camera-input-live==0.2.0
 streamlit-card==0.0.5
 streamlit-chat==0.0.2.2

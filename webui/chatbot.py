@@ -1,6 +1,8 @@
 import openai
 import streamlit as st
 from streamlit_chat import message
+from streamlit_extras.colored_header import colored_header
+
 import config
 
 st.set_page_config(page_title='ChatBot', layout='wide', page_icon='🤖')
@@ -28,6 +30,7 @@ with st.form("chat_input", clear_on_submit=True):
     b.form_submit_button("Send", use_container_width=True)
 
 for msg in st.session_state.messages:
+    colored_header(label='', description='', color_name='blue-30')
     message(msg["content"], is_user=msg["role"] == "user")
 
 if user_input and openai_api_key:
