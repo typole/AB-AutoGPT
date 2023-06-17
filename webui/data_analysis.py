@@ -60,13 +60,15 @@ with tap_chat:
     else:
         openai.api_key = st.secrets['OPENAI_API_KEY']
 
-    if user_input:
+    if user_input and data_obj:
         st.session_state.messages.append({"role": "user", "content": user_input})
         message(user_input, is_user=True)
         agent = helper.built_agent_llm(data_obj)
         response = agent.run(user_input)
         st.session_state.messages.append(response)
         message(response)
+    else:
+        st.caption("请配置数据源，并加载数据！")
 
 with tap_example:
     if data_obj is not None:
