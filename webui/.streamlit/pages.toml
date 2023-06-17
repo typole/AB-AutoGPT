@@ -2,7 +2,6 @@
 path = "webui/homepage.py"
 name = "首页"
 icon = "🏠"
-is_section = false
 
 [[pages]]
 path = "webui/chatbot.py"
