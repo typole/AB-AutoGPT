@@ -14,7 +14,7 @@ with st.sidebar:
     st.selectbox("大语言模型：", index=0, options=config.MODEL_OPTIONS, key="select_model")
     # 加载数据源
     st.write("\n")
-    st.markdown("###🕋 选择数据源")
+    st.markdown("### 🕋 选择数据源")
     st.selectbox("数据源加载：", index=0, options=config.DATA_SOURCES, key="select_data_source")
     if st.session_state['select_data_source'] == '本地文件[CSV]':
         data_obj = helper.load_offline_file()
