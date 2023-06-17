@@ -14,7 +14,11 @@ st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖')
 show_pages(
     [
         Page("webui/homepage.py", "首页", "🏠"),
-        Page("webui/text_to_sql.py", "文本转SQL", "📊")
+        Page("webui/chatbot.py", "聊天机器人", "🤖"),
+        Page("webui/data_analysis.py", "数据分析师", "💹"),
+        Page("webui/data_engineer.py", "数据工程师", "📄"),
+        Page("webui/ml_precess.py", "文本生成SQL", "🏗️"),
+        Page("webui/text_to_sql.py", "机器学习流程", "⏳")
     ]
 )
 
