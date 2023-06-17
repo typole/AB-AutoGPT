@@ -126,21 +126,6 @@ with col_history:
 
 # 聊天窗口
 with col_chat:
-    # 聊天提交表单
-    with st.form("chat_input", clear_on_submit=True):
-        a, b = st.columns([4, 1])
-        user_input = a.text_input(
-            label="请输入:",
-            placeholder="你想和我聊什么?",
-            label_visibility="collapsed",
-            key="user_input_text",
-        )
-        submitted = b.form_submit_button("Send", use_container_width=True)
-    if submitted:
-        st.session_state['user_input_content'] = user_input
-        st.session_state['user_voice_value'] = ''
-        st.experimental_rerun()
-
     # 加载数据
     current_chat = st.session_state[
         'current_chat' + st.session_state['history_chats'][st.session_state["current_chat_index"]]]
@@ -152,18 +137,31 @@ with col_chat:
                 for k, v in value.items():
                     st.session_state[k + current_chat + "value"] = v
 
+    # 聊天提交表单
+    with st.form("chat_input", clear_on_submit=True):
+        a, b = st.columns([4, 1])
+        user_input = a.text_input(
+            label="请输入:",
+            placeholder="你想和我聊什么?",
+            label_visibility="collapsed",
+            key='user_input_content' + current_chat
+        )
+        submitted = b.form_submit_button("Send", use_container_width=True)
+    if submitted:
+        st.session_state['user_input_content'] = user_input
+        st.session_state['user_voice_value'] = ''
+        st.experimental_rerun()
+
     # 保证不同chat的页面层次一致，否则会导致自定义组件重新渲染
     container_show_messages = st.container()
     container_show_messages.write("")
+
     # 对话展示
     with container_show_messages:
         if st.session_state["history" + current_chat]:
-            st.write(st.session_state)
-            if openai_api_key and st.session_state['user_input_content']:
-                st.session_state['user_input_content' + current_chat] = st.session_state['user_input_content']
+            if openai_api_key:
                 openai.api_key = openai_api_key
             else:
-                st.session_state['user_input_content' + current_chat] = st.session_state['user_input_content']
                 openai.api_key = st.secrets['OPENAI_API_KEY']
 
             for msg in st.session_state["history" + current_chat]:
@@ -179,7 +177,6 @@ with col_chat:
                 st.session_state["history" + current_chat].append(msg)
                 message(msg.content, key='message' + current_chat + str(random.random()))
         else:
-            st.write(st.session_state)
             st.session_state["history" + current_chat] = [{"role": "assistant", "content": "有什么我能帮助您？"}]
 
     # # 核查是否有对话需要删除
