@@ -15,9 +15,9 @@ show_pages(
         Page("webui/homepage.py", "首页", "🏠"),
         Page("webui/chatbot.py", "聊天机器人", "🤖"),
         Page("webui/data_analysis.py", "数据分析师", "💹"),
-        Page("webui/data_engineer.py", "数据工程师", "🔗"),
-        Page("webui/ml_precess.py", "文本生成SQL", "📝"),
-        Page("webui/text_to_sql.py", "机器学习流程", "🏗️")
+        Page("webui/data_engineer.py", "数据工程师", "⚙️"),
+        Page("webui/text_to_sql.py", "机器学习流程", "🏗️"),
+        Page("webui/ml_precess.py", "常用工具库", "🧰")
     ]
 )
 
