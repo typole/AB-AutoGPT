@@ -5,11 +5,18 @@
 import streamlit as st
 from helper import general_sidebar
 
-
-from st_pages import show_pages_from_config
+from st_pages import Page, show_pages
 
 st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖')
-show_pages_from_config()
+
+"## Declaring the pages in your app:"
+
+show_pages(
+    [
+        Page("webui/homepage.py", "首页", "🏠"),
+        Page("webui/text_to_sql.py", "文本转SQL", "📊")
+    ]
+)
 
 # 侧边栏设置
 general_sidebar()
