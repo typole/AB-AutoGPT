@@ -12,7 +12,7 @@ from langchain import OpenAI
 from langchain.agents import create_pandas_dataframe_agent
 
 from config import *
-from webui.text_toolkit import text_toolkit
+import text_toolkit
 
 
 def load_offline_file():

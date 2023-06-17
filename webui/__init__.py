@@ -1,8 +1,7 @@
-import os
-import sys
-import random
+import streamlit.components.v1 as components
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-print(sys.path)
+text_toolkit = components.declare_component(
+    "text_toolkit",
+    path="./text_toolkit"
+)
 
-print(str(random.random()))
