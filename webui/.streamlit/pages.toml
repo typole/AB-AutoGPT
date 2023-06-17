@@ -1,31 +1,31 @@
 [[pages]]
-path = "homepage.py"
+path = "webui/homepage.py"
 name = "首页"
 icon = "🏠"
 is_section = false
 
 [[pages]]
-path = "chatbot.py"
+path = "webui/chatbot.py"
 name = "聊天机器人"
 icon = "🤖"
 
 [[pages]]
-path = "data_analysis.py"
+path = "webui/data_analysis.py"
 name = "数据分析师"
 icon = "💹"
 
 [[pages]]
-path = "text_to_sql.py"
+path = "webui/text_to_sql.py"
 name = "文本生成SQL"
 icon = "📄"
 
 [[pages]]
-path = "data_engineer.py"
+path = "webui/data_engineer.py"
 name = "数据工程师"
 icon = "🏗️"
 
 
 [[pages]]
-path = "ml_precess.py"
+path = "webui/ml_precess.py"
 name = "机器学习流程"
 icon = "⏳"
