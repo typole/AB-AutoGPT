@@ -27,9 +27,9 @@ show_pages(
 #         Page("homepage.py", "首页", "🏠"),
 #         Page("chatbot.py", "聊天机器人", "🤖"),
 #         Page("data_analysis.py", "数据分析师", "💹"),
-#         Page("data_engineer.py", "数据工程师", "🔗"),
-#         Page("ml_precess.py", "文本生成SQL", "📝"),
-#         Page("tools.py", "机器学习流程", "🏗️")
+#         Page("data_engineer.py", "数据工程师", "⚙️"),
+#         Page("ml_precess.py", "机器学习流程", "🏗️"),
+#         Page("tools.py", "常用工具箱", "🧰")
 #     ]
 # )
 
