@@ -1,6 +1,6 @@
 import streamlit as st
 
-from webui.helper import general_sidebar
+from helper import general_sidebar
 
 # 页面设置
 st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖', initial_sidebar_state="auto")

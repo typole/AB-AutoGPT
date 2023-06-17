@@ -8,4 +8,10 @@ st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖', ini
 # 侧边栏设置
 general_sidebar()
 
-st.caption("敬请期待！！！")
+tap_sql, tap_regex = st.tabs(['📰 Text2SQL', '💬️ 正则表达式'])
+
+with tap_sql:
+    st.caption("敬请期待！！！")
+
+with tap_regex:
+    st.caption("敬请期待！！！")
