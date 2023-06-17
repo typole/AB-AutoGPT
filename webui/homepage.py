@@ -9,11 +9,9 @@ from st_pages import Page, show_pages
 
 st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖')
 
-"## Declaring the pages in your app:"
-
 show_pages(
     [
-        Page("webui/homepage.py", "首页", "🏠"),
+        Page("webui/homepage.py", "首页", "icon/首页.ico"),
         Page("webui/chatbot.py", "聊天机器人", "🤖"),
         Page("webui/data_analysis.py", "数据分析师", "💹"),
         Page("webui/data_engineer.py", "数据工程师", "📄"),
