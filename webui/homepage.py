@@ -17,7 +17,7 @@ show_pages(
         Page("webui/data_analysis.py", "数据分析师", "💹"),
         Page("webui/data_engineer.py", "数据工程师", "⚙️"),
         Page("webui/ml_precess.py", "机器学习流程", "🏗️"),
-        Page("webui/tools.py", "常用工具库", "🧰")
+        Page("webui/tools.py", "常用工具箱", "🧰")
     ]
 )
 

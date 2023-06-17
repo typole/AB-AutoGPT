@@ -14,7 +14,7 @@ with st.sidebar:
     st.selectbox("大语言模型：", index=0, options=config.MODEL_OPTIONS, key="select_model")
     # 加载数据源
     st.write("\n")
-    st.markdown("### 📊 选择数据源")
+    st.markdown("###🕋 选择数据源")
     st.selectbox("数据源加载：", index=0, options=config.DATA_SOURCES, key="select_data_source")
     if st.session_state['select_data_source'] == '本地文件[CSV]':
         data_obj = helper.load_offline_file()
@@ -31,7 +31,8 @@ with st.sidebar:
 # 主页面内容
 st.subheader("💹 人人都是数据分析师")
 
-tap_chat, tap_example, tap_meta, tap_chart = st.tabs(['📰 数据对话', '💬️ 数据示例', '💬️ 元数据', '💬️ 数据可视化'])
+tap_chat, tap_example, tap_meta, tap_chart, tap_methodology = st.tabs(
+    ['📰 数据对话', '💬️ 数据示例', '💬️ 元数据', '💬️ 数据可视化', '💬️ 分析方法论'])
 with tap_chat:
     if data_obj is None:
         st.caption("请配置数据源，并加载数据！")
@@ -84,3 +85,6 @@ with tap_chart:
         st.caption("请配置数据源，并加载数据！")
     else:
         st.write("敬请期待！")
+
+with tap_methodology:
+    st.caption("敬请期待！")
