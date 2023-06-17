@@ -34,6 +34,9 @@ def general_sidebar():
         # 侧边栏标题
         st.markdown("# AB-AutoGPT")
         st.caption("[0-1]面向AI/BigData从业者的AutoGPT")
+
+        st.write("\n")
+        st.write("\n")
         st.markdown('<a href="https://github.com/typole/AB-AutoGPT" target="_blank" rel="ChatGPT-Assistant">'
                     '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=AB-AutoGPT" alt="GitHub">'
                     '</a>', unsafe_allow_html=True)

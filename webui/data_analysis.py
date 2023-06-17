@@ -12,12 +12,8 @@ st.set_page_config(page_title='人人都是数据分析师', layout='wide', page
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API key：[有默认值]", key="set_api_key", placeholder="点击输入")
     st.selectbox("大语言模型：", index=0, options=config.MODEL_OPTIONS, key="select_model")
-    st.markdown('<a href="https://github.com/typole/AB-AutoGPT" target="_blank" rel="ChatGPT-Assistant">'
-                '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=AB-AutoGPT" alt="GitHub">'
-                '</a>', unsafe_allow_html=True)
-
-    st.write("---")
     # 加载数据源
+    st.write("\n")
     st.markdown("### 📊 选择数据源")
     st.selectbox("数据源加载：", index=0, options=config.DATA_SOURCES, key="select_data_source")
     if st.session_state['select_data_source'] == '本地文件[CSV]':
@@ -27,6 +23,10 @@ with st.sidebar:
         pass
     else:
         assert False, "数据源加载失败！"
+    st.write("---")
+    st.markdown('<a href="https://github.com/typole/AB-AutoGPT" target="_blank" rel="ChatGPT-Assistant">'
+                '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=AB-AutoGPT" alt="GitHub">'
+                '</a>', unsafe_allow_html=True)
 
 # 主页面内容
 st.subheader("💹 人人都是数据分析师")
@@ -74,6 +74,12 @@ with tap_example:
         st.caption("请配置数据源，并加载数据！")
 
 with tap_meta:
+    if data_obj is None:
+        st.caption("请配置数据源，并加载数据！")
+    else:
+        st.write("敬请期待！")
+
+with tap_chart:
     if data_obj is None:
         st.caption("请配置数据源，并加载数据！")
     else:

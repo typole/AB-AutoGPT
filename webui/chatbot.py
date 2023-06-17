@@ -10,13 +10,16 @@ st.set_page_config(page_title='ChatBot', layout='wide', page_icon='🤖')
 # 侧边栏配置
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API key：[有默认值]", key="set_api_key", placeholder="点击输入")
-    st.selectbox("大语言模型：", index=0, options=config.MODEL_OPTIONS, key="select_model")
+    st.selectbox("大语言模型：[有默认值]", index=0, options=config.MODEL_OPTIONS, key="select_model")
+
+    st.write("\n")
+    st.write("\n")
     st.markdown('<a href="https://github.com/typole/AB-AutoGPT" target="_blank" rel="ChatGPT-Assistant">'
                 '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=AB-AutoGPT" alt="GitHub">'
                 '</a>', unsafe_allow_html=True)
 
 # 主页面内容
-st.title("🤖 ChatBot[TODO:语音输入]")
+st.subheader("🤖 ChatBot[todo:语音输入]")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "有什么我能帮助您？"}]
 
