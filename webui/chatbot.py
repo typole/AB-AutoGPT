@@ -10,8 +10,9 @@
 """
 
 import random
-from webui.config import *
-from webui.helper import *
+import config
+
+from helper import *
 from streamlit_chat import message
 from streamlit_extras.colored_header import colored_header
 
@@ -44,7 +45,7 @@ st.markdown(button_css, unsafe_allow_html=True)
 # 侧边栏配置
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API key：[有默认值]", key="set_api_key", placeholder="点击输入")
-    st.selectbox("大语言模型：[有默认值]", index=0, options=MODEL_OPTIONS, key="select_model")
+    st.selectbox("大语言模型：[有默认值]", index=0, options=config.MODEL_OPTIONS, key="select_model")
 
     st.write("\n")
     st.write("\n")
@@ -120,7 +121,7 @@ with col_history:
     #         mime="text/markdown",
     #         use_container_width=True
     #     )
-st.write(st.session_state)
+
 # 聊天窗口展示 | 模型对话拆出去
 with col_chat:
     # 当前chat对象
