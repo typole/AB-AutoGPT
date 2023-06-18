@@ -11,7 +11,7 @@ import pandas as pd
 from langchain import OpenAI
 from langchain.agents import create_pandas_dataframe_agent
 
-from config import *
+from webui.config import *
 
 
 def load_offline_file():
@@ -70,23 +70,16 @@ def get_history_chats(path: str) -> list:
     return chat_names
 
 
-def save_data(path: str, file_name: str, history: list, paras: dict, contexts: dict, **kwargs):
-    if not os.path.exists(path):
-        os.makedirs(path)
-    with open(f"./{path}/{file_name}.json", 'w', encoding='utf-8') as f:
-        json.dump({"history": history, "paras": paras, "contexts": contexts, **kwargs}, f)
-
-
-def remove_data(path: str, chat_name: str):
+def remove_data(path: str, current_chat: str):
     try:
-        os.remove(f"./{path}/{chat_name}.json")
+        os.remove(f"./{path}/{current_chat}.json")
     except FileNotFoundError:
         pass
     # 清除缓存
     try:
-        st.session_state.pop('history' + chat_name)
+        st.session_state.pop('history' + current_chat)
         for item in ["context_select", "context_input", "context_level", *initial_content_all['paras']]:
-            st.session_state.pop(item + chat_name + "value")
+            st.session_state.pop(item + current_chat + "value")
     except KeyError:
         pass
 
@@ -142,7 +135,17 @@ def create_chat_fun():
 #                   st.session_state["paras"], st.session_state["contexts"])
 
 
-def write_data(new_chat_name, current_chat):
+def save_data(current_chat):
+    path = st.session_state["path"]
+    file_name = st.session_state["current_chat" + current_chat]
+    if not os.path.exists(path):
+        os.makedirs(path)
+    with open(f"./{path}/{file_name}.json", 'w', encoding='utf-8') as f:
+        json.dump({"history": st.session_state["history" + current_chat], "paras": st.session_state['paras'],
+                   "contexts": st.session_state['contexts']}, f)
+
+
+def write_data(current_chat):
     # 不进行参数设置
     if "OPENAI_API_KEY" in st.secrets:
         st.write(st.session_state)
@@ -157,8 +160,7 @@ def write_data(new_chat_name, current_chat):
             "context_input": initial_content_all["contexts"]["context_input"],
             "context_level": initial_content_all["contexts"]["context_level"],
         }
-        save_data(st.session_state["path"], new_chat_name, st.session_state["history" + current_chat],
-                  initial_content_all["paras"], initial_content_all["contexts"])
+        save_data(current_chat)
 
 
 def filename_correction(filename: str) -> str:
@@ -168,18 +170,13 @@ def filename_correction(filename: str) -> str:
 
 
 def reset_chat_name_fun(chat_name, current_chat):
-    st.write("111" + chat_name)
     chat_name = chat_name + '_' + str(uuid.uuid4())
-    st.write("222" + chat_name)
     new_name = filename_correction(chat_name)
-    st.write("333" + new_name)
     current_chat_index = st.session_state['history_chats'].index(current_chat)
-    st.write(str(current_chat_index))
     st.session_state['history_chats'][current_chat_index] = new_name
     st.session_state["current_chat_index"] = current_chat_index
     # 写入新文件
-    st.write("new_name" + new_name)
-    write_data(new_name, current_chat)
+    write_data(current_chat)
     # 转移数据
     st.session_state['history' + new_name] = st.session_state['history' + current_chat]
     for item in ["context_select", "context_input", "context_level", *initial_content_all['paras']]:
@@ -309,3 +306,13 @@ def clear_button_callback(chat_name, current_chat):
     # 清空聊天记录
     st.session_state['history' + current_chat] = []
     write_data(chat_name, current_chat)
+
+
+def input_callback(current_chat):
+    if st.session_state['user_input_content' + current_chat] != "":
+        # 修改窗口名称
+        user_input_content = st.session_state['user_input_content' + current_chat]
+        df_history = pd.DataFrame(st.session_state["history" + current_chat])
+        if df_history.empty or len(df_history.query('role!="system"')) == 0:
+            new_name = extract_chars(user_input_content, 18)
+            reset_chat_name_fun(new_name, current_chat)
