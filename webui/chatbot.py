@@ -1,13 +1,22 @@
-import random
+"""
+模块介绍：
+1. 模型配置信息：
+    - 初始化模型配置：st.session_state["initial_settings"] = True
+    - 初始化字段[path, history_chats, delete_dict, delete_count, error_info, current_chat_index, user_input_content]
+    - 重命名：set_chat_name
+    - 模型初始化对象：config.initial_content_all [history, paras, contexts]
+2.
 
-from requests.exceptions import ChunkedEncodingError
+"""
+
+import random
+import config
 
 from helper import *
 from streamlit_chat import message
 from streamlit_extras.colored_header import colored_header
 
-import config
-
+# 主页面设置
 st.set_page_config(page_title='ChatBot', layout='wide', page_icon='🤖')
 
 # button样式
@@ -46,26 +55,9 @@ with st.sidebar:
 
 # 主页面内容
 st.subheader("🤖 ChatBot[todo:语音输入]")
-
-# 整体设置
-c1, c2 = st.columns(2)
-with c1:
-    if "open_text_toolkit_value" in st.session_state:
-        default = st.session_state["open_text_toolkit_value"]
-    else:
-        default = True
-    st.checkbox("开启文本下的功能组件", value=default, key='open_text_toolkit',
-                on_change=save_set, args=("open_text_toolkit",))
-with c2:
-    if "open_voice_toolkit_value" in st.session_state:
-        default = st.session_state["open_voice_toolkit_value"]
-    else:
-        default = True
-    st.checkbox("开启语音输入组件", value=default, key='open_voice_toolkit',
-                on_change=save_set, args=('open_voice_toolkit',))
 colored_header(label='', description='', color_name='blue-30')
 
-# 初始化session聊天模型等信息
+# 初始化session聊天模型配置
 if "initial_settings" not in st.session_state:
     # 历史聊天窗口
     st.session_state["path"] = 'history_chats_file'
@@ -73,17 +65,9 @@ if "initial_settings" not in st.session_state:
     # ss参数初始化
     st.session_state['delete_dict'] = {}
     st.session_state['delete_count'] = 0
-    st.session_state['voice_flag'] = ''
-    st.session_state['user_voice_value'] = ''
     st.session_state['error_info'] = ''
     st.session_state["current_chat_index"] = 0
     st.session_state['user_input_content'] = ''
-    # 读取全局设置
-    if os.path.exists('./set.json'):
-        with open('./set.json', 'r', encoding='utf-8') as f:
-            data_set = json.load(f)
-        for key, value in data_set.items():
-            st.session_state[key] = value
     # 设置完成
     st.session_state["initial_settings"] = True
 
@@ -124,20 +108,37 @@ with col_history:
         st.experimental_rerun()
     st.text_input("设定窗口名称：", key="set_chat_name", placeholder="点击输入")
 
-# 聊天窗口
+    # # 导出聊天记录和清空聊天记录
+    # c1, c2 = st.columns(2)
+    # with c1:
+    #     st.button("清空记录", use_container_width=True, on_click=clear_button_callback,
+    #               params=(current_chat.split('_')[1], current_chat))
+    # with c2:
+    #     btn = st.download_button(
+    #         label="导出记录",
+    #         data=download_history(st.session_state['history' + current_chat]),
+    #         file_name=f'{current_chat.split("_")[0]}.md',
+    #         mime="text/markdown",
+    #         use_container_width=True
+    #     )
+
+# 聊天窗口展示 | 模型对话拆出去
 with col_chat:
-    # 加载数据
+    # 当前chat对象
     current_chat = st.session_state[
         'current_chat' + st.session_state['history_chats'][st.session_state["current_chat_index"]]]
+    # 如果当前聊天窗口没有历史记录，则加载
     if "history" + current_chat not in st.session_state:
         for key, value in load_data(st.session_state["path"], current_chat).items():
+            # 聊天记录：history
             if key == 'history':
                 st.session_state[key + current_chat] = value
+            # 模型参数：paras, contexts
             else:
                 for k, v in value.items():
                     st.session_state[k + current_chat + "value"] = v
 
-    # 聊天提交表单
+    # 聊天对话表单
     with st.form("chat_input", clear_on_submit=True):
         a, b = st.columns([4, 1])
         user_input = a.text_input(
@@ -148,8 +149,8 @@ with col_chat:
         )
         submitted = b.form_submit_button("Send", use_container_width=True)
     if submitted:
+        st.write("用户输入：" + user_input)  # TODO
         st.session_state['user_input_content'] = user_input
-        st.session_state['user_voice_value'] = ''
         st.experimental_rerun()
 
     # 保证不同chat的页面层次一致，否则会导致自定义组件重新渲染

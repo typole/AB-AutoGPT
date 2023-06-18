@@ -303,3 +303,9 @@ def get_model_input(current_chat):
         "frequency_penalty": initial_content_all["paras"]["frequency_penalty"]
     }
     return history, paras
+
+
+def clear_button_callback(chat_name, current_chat):
+    # 清空聊天记录
+    st.session_state['history' + current_chat] = []
+    write_data(chat_name, current_chat)
