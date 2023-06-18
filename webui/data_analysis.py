@@ -60,7 +60,7 @@ with tap_chat:
     else:
         openai.api_key = st.secrets['OPENAI_API_KEY']
 
-    if user_input and data_obj:
+    if user_input and data_obj is not None:
         st.session_state.messages.append({"role": "user", "content": user_input})
         message(user_input, is_user=True)
         agent = helper.built_agent_llm(data_obj)
