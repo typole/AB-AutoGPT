@@ -9,29 +9,29 @@ from st_pages import Page, show_pages
 
 st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖')
 
-# # online
-# show_pages(
-#     [
-#         Page("webui/homepage.py", "首页", "🏠"),
-#         Page("webui/chatbot.py", "聊天机器人", "🤖"),
-#         Page("webui/data_analysis.py", "数据分析师", "💹"),
-#         Page("webui/data_engineer.py", "数据工程师", "⚙️"),
-#         Page("webui/ml_precess.py", "机器学习流程", "🏗️"),
-#         Page("webui/tools.py", "常用工具箱", "🧰")
-#     ]
-# )
-
-# local
+# online
 show_pages(
     [
-        Page("homepage.py", "首页", "🏠"),
-        Page("chatbot.py", "聊天机器人", "🤖"),
-        Page("data_analysis.py", "数据分析师", "💹"),
-        Page("data_engineer.py", "数据工程师", "⚙️"),
-        Page("ml_precess.py", "机器学习流程", "🏗️"),
-        Page("tools.py", "常用工具箱", "🧰")
+        Page("webui/homepage.py", "首页", "🏠"),
+        Page("webui/chatbot.py", "聊天机器人", "🤖"),
+        Page("webui/data_analysis.py", "数据分析师", "💹"),
+        Page("webui/data_engineer.py", "数据工程师", "⚙️"),
+        Page("webui/ml_precess.py", "机器学习流程", "🏗️"),
+        Page("webui/tools.py", "常用工具箱", "🧰")
     ]
 )
+
+# # local
+# show_pages(
+#     [
+#         Page("homepage.py", "首页", "🏠"),
+#         Page("chatbot.py", "聊天机器人", "🤖"),
+#         Page("data_analysis.py", "数据分析师", "💹"),
+#         Page("data_engineer.py", "数据工程师", "⚙️"),
+#         Page("ml_precess.py", "机器学习流程", "🏗️"),
+#         Page("tools.py", "常用工具箱", "🧰")
+#     ]
+# )
 
 
 # 侧边栏设置
