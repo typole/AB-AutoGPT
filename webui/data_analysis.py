@@ -17,7 +17,7 @@ with st.sidebar:
     st.markdown("### 🕋 选择数据源")
     st.selectbox("数据源加载：", index=0, options=config.DATA_SOURCES, key="select_data_source")
     if st.session_state['select_data_source'] == '本地文件[CSV]':
-        data_obj = helper.load_offline_file()
+        data_lst, metadata_lst = helper.load_offline_file()
     elif st.session_state['select_data_source'] == 'MySQL':
         # 请配置MySQL数据库连接
         pass
@@ -34,7 +34,7 @@ st.subheader("💹 人人都是数据分析师")
 tap_chat, tap_example, tap_meta, tap_chart, tap_methodology = st.tabs(
     ['👆 数据对话', '👉 数据示例', '👇 元数据', '👉 数据可视化', '👊 分析方法论'])
 with tap_chat:
-    if data_obj is None:
+    if not data_lst:
         st.caption("请配置数据源，并加载数据！")
     else:
         st.write("数据源已加载！开始你的数据探索之旅吧！")
@@ -60,10 +60,10 @@ with tap_chat:
     else:
         openai.api_key = st.secrets['OPENAI_API_KEY']
 
-    if user_input and data_obj is not None:
+    if user_input and data_lst != []:
         st.session_state.messages.append({"role": "user", "content": user_input})
         message(user_input, is_user=True)
-        agent = helper.built_agent_llm(data_obj)
+        agent = helper.built_agent_llm(data_lst)
         response = agent.run(user_input)
         st.session_state.messages.append(response)
         message(response)
@@ -71,19 +71,25 @@ with tap_chat:
         st.caption("请配置数据源，并加载数据！")
 
 with tap_example:
-    if data_obj is not None:
-        st.dataframe(data_obj, height=600)
+    if data_lst:
+        option = st.selectbox("选择数据对象：", index=0, options=metadata_lst, key="select_metadata_example")
+        for idx in range(len(metadata_lst)):
+            if metadata_lst[idx] == option:
+                st.data_editor(data_lst[idx], height=600)
     else:
         st.caption("请配置数据源，并加载数据！")
 
 with tap_meta:
-    if data_obj is None:
-        st.caption("请配置数据源，并加载数据！")
+    if data_lst:
+        option = st.selectbox("选择数据对象：", index=0, options=metadata_lst, key="select_metadata_meta")
+        for idx in range(len(metadata_lst)):
+            if metadata_lst[idx] == option:
+                st.data_editor(data_lst[idx].columns, height=600)
     else:
-        st.write("敬请期待！")
+        st.caption("请配置数据源，并加载数据！")
 
 with tap_chart:
-    if data_obj is None:
+    if not data_lst:
         st.caption("请配置数据源，并加载数据！")
     else:
         st.write("敬请期待！")

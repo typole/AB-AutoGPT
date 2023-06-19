@@ -16,16 +16,24 @@ from config import *
 
 def load_offline_file():
     # 加载离线数据，支持csv、excel
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-        file_type = os.path.splitext(uploaded_file.name)[1]
+    upload_files = st.file_uploader("Choose a file", accept_multiple_files=True)
+    df_lst = []
+    metadata_lst = []
+    for upload_file in upload_files:
+        file_type = os.path.splitext(upload_file.name)[1]
         if file_type == '.csv':
-            df = pd.read_csv(uploaded_file)
+            df = pd.read_csv(upload_file)
+            df_lst.append(df)
+            metadata_lst.append(upload_file.name)
+            df.to_csv("./files/{}".format(upload_file.name), index=False)
         elif file_type == '.xlsx':
-            df = pd.read_excel(uploaded_file)
+            df = pd.read_excel(upload_file)
+            df_lst.append(df)
+            metadata_lst.append(upload_file.name)
+            df.to_excel("./files/{}".format(upload_file.name), index=False)
         else:
             assert False, "不支持的文件格式"
-        return df
+    return df_lst, metadata_lst
 
 
 def general_sidebar():
