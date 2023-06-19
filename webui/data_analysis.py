@@ -84,7 +84,8 @@ with tap_meta:
         option = st.selectbox("选择数据对象：", index=0, options=metadata_lst, key="select_metadata_meta")
         for idx in range(len(metadata_lst)):
             if metadata_lst[idx] == option:
-                st.data_editor(data_lst[idx].columns, height=600)
+                st.markdown("#### 数据统计")
+                st.data_editor(data_lst[idx].describe(), height=600)
     else:
         st.caption("请配置数据源，并加载数据！")
 
