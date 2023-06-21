@@ -89,7 +89,6 @@ tap_chat, tap_example, tap_meta, tap_chart, tap_methodology = st.tabs(
     ['👆 数据探索', '👉 数据示例', '👇 元数据', '👉 数据可视化', '👊 分析方法论'])
 with tap_chat:
     if not data_lst:
-        st.write(data_lst)
         st.caption("请配置数据源，并加载数据！")
     else:
         st.write("数据源已加载！开始你的数据探索之旅吧！")
