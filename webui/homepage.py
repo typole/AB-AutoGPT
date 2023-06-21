@@ -5,7 +5,7 @@
 import streamlit as st
 from helper import general_sidebar
 
-from st_pages import Page, show_pages
+from st_pages import Page, show_pages, Section
 
 st.set_page_config(page_title='AB-AutoGPT', layout='wide', page_icon='🤖')
 
@@ -16,7 +16,7 @@ show_pages(
         Page("webui/chatbot.py", "聊天机器人", "🤖"),
         Page("webui/data_analysis.py", "数据分析师", "💹"),
         Page("webui/ml_precess.py", "机器学习流程", "🏗️"),
-        Page("webui/tools.py", "常用工具箱", "🧰")
+        Page("webui/tools.py", "数据工具箱", "🧰")
     ]
 )
 
@@ -27,7 +27,7 @@ show_pages(
 #         Page("chatbot.py", "聊天机器人", "🤖"),
 #         Page("data_analysis.py", "数据分析师", "💹"),
 #         Page("ml_precess.py", "机器学习流程", "🏗️"),
-#         Page("tools.py", "常用工具箱", "🧰")
+#         Page("tools.py", "数据工具箱", "🧰")
 #     ]
 # )
 
