@@ -30,9 +30,10 @@ with st.sidebar:
 
 # 主页面内容
 st.subheader("💹 人人都是数据分析师")
+st.caption("实战全流程：业务指标 → 指标量化 → 数据探索 → 数据建模 → 数据可视化 → 观点输出 → 业务指标 → ...")
 
 tap_chat, tap_example, tap_meta, tap_chart, tap_methodology = st.tabs(
-    ['👆 数据对话', '👉 数据示例', '👇 元数据', '👉 数据可视化', '👊 分析方法论'])
+    ['👆 数据探索', '👉 数据示例', '👇 元数据', '👉 数据可视化', '👊 分析方法论'])
 with tap_chat:
     if not data_lst:
         st.caption("请配置数据源，并加载数据！")
